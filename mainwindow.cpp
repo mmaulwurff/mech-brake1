@@ -71,16 +71,13 @@ void MainWindow::on_action_triggered()
 
 void MainWindow::on_Start_released()
 {
-    ui->Start->setText(tr("Идет эксперимент..."));
-    ui->Start->setEnabled(false);
-    ui->restartButton->setEnabled(false);
-    rectLeft.setRect(60, -20, 20, 40);
-    rectRight.setRect(80, -10, 40, 20);
-
     double l=ui->lEdit->text().toDouble();
     if ( l < 0.1 || l > 1 ) {
-        ui->lEdit->setText("0.1");
-        l=0.1;
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректное l."));
+        msgbox.exec();
+        ui->lEdit->setText("");
+        return;
     }
     const double l_vis=l*150;
 
@@ -120,69 +117,64 @@ void MainWindow::on_Start_released()
         fi_razg=30;
     }
 
-    const double P=ui->PEdit->text().toDouble();
-
-    double w=w0, wprev=0;
+    double w=w0, wprev=w0;
     double fi=0.01;
-    const double dt=0.1;
+    dt=0.001;
     const double J=Gc*l*l/g/3 + Gb*R*R/g/2;
     const double b=Gc*l/2/J;
+
+    ui->Start->setText(tr("Идет эксперимент..."));
+    ui->Start->setEnabled(false);
+    ui->restartButton->setEnabled(false);
     line.setLine(-l_vis*sin(deg2rad(fi)), -l_vis*cos(deg2rad(fi)), 0, 0);
     wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
     rectLeft.setRect (R*150+20, -20, 20, 40);
     rectRight.setRect(R*150+40, -10, 40, 20);
-
     ui->statusBar->showMessage(tr("Ускорение"));
+
     //разгон
-    double angle_printed=fi;
-    static const double dangle=1;
     for (uint k=0; fi<=fi_razg; ++k) {
         w+=b*sin(deg2rad(fi))*dt;
-        fi+=(wprev+w)*dt/2;
+        fi+=rad2deg((wprev+w)*dt/2);
         wprev=w;
-        if (fi-angle_printed>dangle) {
+        if ( 0==k%10 ) {
             ui->fiCurEdit->setText(QString::number(fi));
             line.setLine(-l_vis*sin(deg2rad(fi)), -l_vis*cos(deg2rad(fi)), 0, 0);
-            ui->graphicsView->centerOn(0, 0);
-            angle_printed=fi;
         }
         wait();
     }
 
     //этап 2 - торможение до вертикали
     ui->statusBar->showMessage(tr("Торможение"));
-    rectLeft.setRect(R*150, -20, 20, 40);
+    rectLeft.setRect (R*150,    -20, 20, 40);
     rectRight.setRect(R*150+20, -10, 40, 20);
+
+    const double P=ui->PEdit->text().toDouble();
     const double d=P*R*f/J;
     for (uint k=0; fi<=180 && w>0; ++k) {
         w+=(b*sin(deg2rad(fi)) - d)*dt;
-        fi+=(wprev+w)*dt/2;
+        fi+=rad2deg((wprev+w)*dt/2);
         wprev=w;
-        if (fi-angle_printed>dangle) {
+        if ( 0==k%10 ) {
             ui->fiCurEdit->setText(QString::number(fi));
             line.setLine(-l_vis*sin(deg2rad(fi)), -l_vis*cos(deg2rad(fi)), 0, 0);
-            ui->graphicsView->centerOn(0, 0);
-            angle_printed=fi;
         }
         wait();
     }
 
-    angle_printed=0;
     if ( w>0 ) { //этап 3 - после вертикали
         double psi=0.01;
         for (uint k=0; w>0 && psi<=180; ++k) {
             w-=(b*sin(deg2rad(psi)) + d)*dt;
-            psi+=(wprev+w)*dt/2;
+            psi+=rad2deg((wprev+w)*dt/2);
             wprev=w;
-            if (psi-angle_printed>dangle) {
+            if ( 0==k%10 ) {
                 ui->fiCurEdit->setText(QString::number(180+psi));
                 line.setLine(l_vis*sin(deg2rad(psi)), l_vis*cos(deg2rad(psi)), 0, 0);
-                ui->graphicsView->centerOn(0, 0);
-                angle_printed=psi;
             }
             wait();
         }
-        if (psi<=180)
+        if ( psi<=180 )
             ui->statusBar->showMessage(tr("Эксперимент завершен."));
         else
             ui->statusBar->showMessage(tr("Эксперимент прерван."));
@@ -193,7 +185,7 @@ void MainWindow::on_Start_released()
     ui->PTeorEdit->setText(QString::number(P_teor));
     const double err_p=100*qAbs(P-P_teor)/P_teor;
     ui->ErrEdit->setText(QString::number(err_p));
-    if (err_p<5)
+    if ( err_p < 5 )
         ui->err5Label->setText(tr("не превышает 5%"));
     else
         ui->err5Label->setText(tr("превышает 5%"));

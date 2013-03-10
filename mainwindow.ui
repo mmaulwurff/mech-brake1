@@ -312,7 +312,7 @@
            <item>
             <widget class="QLabel" name="label_9">
              <property name="text">
-              <string>Начальная угловая скорость w_0 (от 0 до 10)</string>
+              <string>Начальная угловая скорость ω_0 (от 0 до 10)</string>
              </property>
             </widget>
            </item>
@@ -325,7 +325,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>5</string>
              </property>
             </widget>
            </item>
@@ -349,7 +349,7 @@
            <item>
             <widget class="QLabel" name="label_10">
              <property name="text">
-              <string>угол разгона fi_разг</string>
+              <string>угол разгона φ_разг</string>
              </property>
             </widget>
            </item>
@@ -449,7 +449,7 @@
            <item>
             <widget class="QLabel" name="label_13">
              <property name="text">
-              <string>угол поворота fi</string>
+              <string>угол поворота φ</string>
              </property>
             </widget>
            </item>

@@ -17,11 +17,13 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    
+
+    double dt;
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    
+
 private slots:
 
     void on_action_triggered();
@@ -38,10 +40,11 @@ private slots:
     QGraphicsRectItem rectRight;
     QGraphicsEllipseItem wheel;
     double deg2rad(double deg) const { return deg*2*pi/360; }
+    double rad2deg(double rad) const { return rad*360/2/pi; }
     void wait() const
     {
         QEventLoop loop;
-        QTimer::singleShot(10, &loop, SLOT(quit()));
+        QTimer::singleShot(1000*dt, &loop, SLOT(quit()));
         loop.exec();
     }
 
