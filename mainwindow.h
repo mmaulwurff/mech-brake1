@@ -36,6 +36,7 @@ private slots:
     QGraphicsLineItem line;
     QGraphicsRectItem rectLeft;
     QGraphicsRectItem rectRight;
+    QGraphicsEllipseItem wheel;
     double deg2rad(double deg) const { return deg*2*pi/360; }
     void wait() const
     {

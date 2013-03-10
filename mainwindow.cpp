@@ -10,16 +10,49 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QDoubleValidator * lvalid = new QDoubleValidator(0.1, 1, 2, ui->lEdit);
+    lvalid->setNotation(QDoubleValidator::StandardNotation);
+    ui->lEdit->setValidator(lvalid);
+
+    QDoubleValidator * Rvalid = new QDoubleValidator(0.1, 1, 2, ui->REdit);
+    Rvalid->setNotation(QDoubleValidator::StandardNotation);
+    ui->REdit->setValidator(Rvalid);
+
+    QDoubleValidator * Mcvalid = new QDoubleValidator(0, 10, 1, ui->mcEdit);
+    Mcvalid->setNotation(QDoubleValidator::StandardNotation);
+    ui->mcEdit->setValidator(Mcvalid);
+
+    QDoubleValidator * Mbvalid = new QDoubleValidator(0, 10, 1, ui->mbEdit);
+    Mbvalid->setNotation(QDoubleValidator::StandardNotation);
+    ui->mbEdit->setValidator(Mbvalid);
+
+    QDoubleValidator * fvalid = new QDoubleValidator(0, 1, 2, ui->fEdit);
+    fvalid->setNotation(QDoubleValidator::StandardNotation);
+    ui->fEdit->setValidator(fvalid);
+
+    QDoubleValidator * wvalid = new QDoubleValidator(0, 10, 2, ui->wEdit);
+    wvalid->setNotation(QDoubleValidator::StandardNotation);
+    ui->wEdit->setValidator(wvalid);
+
+    QDoubleValidator * fivalid = new QDoubleValidator(0, 180, 2, ui->fiEdit);
+    fivalid->setNotation(QDoubleValidator::StandardNotation);
+    ui->fiEdit->setValidator(fivalid);
+
+    QDoubleValidator * Pvalid = new QDoubleValidator(0, 20000000, 3, ui->PEdit);
+    ui->PEdit->setValidator(Pvalid);
+
+    ui->lEdit->setFocus();
     ui->statusBar->showMessage(tr("Эксперимент готов к запуску"));
-    scene.addEllipse(-50, -50, 100, 100);
-    scene.addLine(-150, 0, 150, 0);
-    scene.addLine(0, -150, 0, 150);
-    rectLeft.setRect(60, -20, 20, 40);
-    rectRight.setRect(80, -10, 40, 20);
+
+    scene.addLine(-160, 0, 240, 0);
+    scene.addLine(0, -160, 0, 160);
+
     rectLeft.setBrush(QBrush(Qt::white));
     rectRight.setBrush(QBrush(Qt::white));
     scene.addItem(&rectLeft);
     scene.addItem(&rectRight);
+    scene.addItem(&wheel);
     line.setPen(QPen(Qt::black, 3));
     scene.addItem(&line);
     ui->graphicsView->setScene(&scene);
@@ -43,25 +76,49 @@ void MainWindow::on_Start_released()
     ui->restartButton->setEnabled(false);
     rectLeft.setRect(60, -20, 20, 40);
     rectRight.setRect(80, -10, 40, 20);
-    const double l=ui->lEdit->text().toDouble();
-    /*if ( 0==l ) {
-        QMessageBox msgbox;
-        msgbox.setText("invalid l");
-        msgbox.exec();
-        return;
-    }*/
 
-    const double Gc=g*ui->mcEdit->text().toDouble();
+    double l=ui->lEdit->text().toDouble();
+    if ( l < 0.1 || l > 1 ) {
+        ui->lEdit->setText("0.1");
+        l=0.1;
+    }
+    const double l_vis=l*150;
 
-    const double R=ui->REdit->text().toDouble();
+    double Gc=g*ui->mcEdit->text().toDouble();
+    if ( Gc < 0 || Gc > 10*g ) {
+        ui->mcEdit->setText("1");
+        Gc=1;
+    }
 
-    const double Gb=g*ui->mbEdit->text().toDouble();
+    double R=ui->REdit->text().toDouble();
+    if ( R < 0.1 || R > 1 ) {
+        ui->REdit->setText("0.1");
+        R = 0.1;
+    }
 
-    const double f=ui->fEdit->text().toDouble();
+    double Gb=g*ui->mbEdit->text().toDouble();
+    if ( Gb < 0 || Gb > 10*g ) {
+        ui->mbEdit->setText("1");
+        Gb=1;
+    }
 
-    const double w0=ui->wEdit->text().toDouble();
+    double f=ui->fEdit->text().toDouble();
+    if ( f < 0 || f > 1 ) {
+        ui->fEdit->setText("0.1");
+        f=0.1;
+    }
 
-    const double fi_razg=ui->fiEdit->text().toDouble();
+    double w0=ui->wEdit->text().toDouble();
+    if ( w0 < 0 || w0 > 10 ) {
+        ui->wEdit->setText("1");
+        w0=1;
+    }
+
+    double fi_razg=ui->fiEdit->text().toDouble();
+    if ( fi_razg < 0 || fi_razg > 180 ) {
+        ui->fiEdit->setText("30");
+        fi_razg=30;
+    }
 
     const double P=ui->PEdit->text().toDouble();
 
@@ -70,7 +127,10 @@ void MainWindow::on_Start_released()
     const double dt=0.1;
     const double J=Gc*l*l/g/3 + Gb*R*R/g/2;
     const double b=Gc*l/2/J;
-    line.setLine(-10*l*sin(deg2rad(fi)), -10*l*cos(deg2rad(fi)), 0, 0);
+    line.setLine(-l_vis*sin(deg2rad(fi)), -l_vis*cos(deg2rad(fi)), 0, 0);
+    wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
+    rectLeft.setRect (R*150+20, -20, 20, 40);
+    rectRight.setRect(R*150+40, -10, 40, 20);
 
     ui->statusBar->showMessage(tr("Ускорение"));
     //разгон
@@ -82,7 +142,7 @@ void MainWindow::on_Start_released()
         wprev=w;
         if (fi-angle_printed>dangle) {
             ui->fiCurEdit->setText(QString::number(fi));
-            line.setLine(-10*l*sin(deg2rad(fi)), -10*l*cos(deg2rad(fi)), 0, 0);
+            line.setLine(-l_vis*sin(deg2rad(fi)), -l_vis*cos(deg2rad(fi)), 0, 0);
             ui->graphicsView->centerOn(0, 0);
             angle_printed=fi;
         }
@@ -91,8 +151,8 @@ void MainWindow::on_Start_released()
 
     //этап 2 - торможение до вертикали
     ui->statusBar->showMessage(tr("Торможение"));
-    rectLeft.setRect(50, -20, 20, 40);
-    rectRight.setRect(70, -10, 40, 20);
+    rectLeft.setRect(R*150, -20, 20, 40);
+    rectRight.setRect(R*150+20, -10, 40, 20);
     const double d=P*R*f/J;
     for (uint k=0; fi<=180 && w>0; ++k) {
         w+=(b*sin(deg2rad(fi)) - d)*dt;
@@ -100,7 +160,7 @@ void MainWindow::on_Start_released()
         wprev=w;
         if (fi-angle_printed>dangle) {
             ui->fiCurEdit->setText(QString::number(fi));
-            line.setLine(-10*l*sin(deg2rad(fi)), -10*l*cos(deg2rad(fi)), 0, 0);
+            line.setLine(-l_vis*sin(deg2rad(fi)), -l_vis*cos(deg2rad(fi)), 0, 0);
             ui->graphicsView->centerOn(0, 0);
             angle_printed=fi;
         }
@@ -116,7 +176,7 @@ void MainWindow::on_Start_released()
             wprev=w;
             if (psi-angle_printed>dangle) {
                 ui->fiCurEdit->setText(QString::number(180+psi));
-                line.setLine(10*l*sin(deg2rad(psi)), 10*l*cos(deg2rad(psi)), 0, 0);
+                line.setLine(l_vis*sin(deg2rad(psi)), l_vis*cos(deg2rad(psi)), 0, 0);
                 ui->graphicsView->centerOn(0, 0);
                 angle_printed=psi;
             }

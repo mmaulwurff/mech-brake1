@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>791</width>
+    <width>883</width>
     <height>696</height>
    </rect>
   </property>
@@ -33,6 +33,18 @@
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QGraphicsView" name="graphicsView">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>410</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
@@ -82,8 +94,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
             <widget class="QLabel" name="label">
+             <property name="toolTip">
+              <string/>
+             </property>
              <property name="text">
-              <string>размер l</string>
+              <string>размер l (от 0.1 до 1)</string>
              </property>
             </widget>
            </item>
@@ -95,8 +110,11 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="toolTip">
+              <string>(от 0.1 до 1)</string>
+             </property>
              <property name="text">
-              <string>10</string>
+              <string>1</string>
              </property>
              <property name="placeholderText">
               <string/>
@@ -129,7 +147,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>масса m_c</string>
+              <string>масса m_c (от 0 до 10)</string>
              </property>
             </widget>
            </item>
@@ -172,8 +190,11 @@
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QLabel" name="label_5">
+             <property name="toolTip">
+              <string/>
+             </property>
              <property name="text">
-              <string>радиус R</string>
+              <string>радиус R (от 0.1 до 1)</string>
              </property>
             </widget>
            </item>
@@ -186,7 +207,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>1</string>
+              <string>0.5</string>
              </property>
             </widget>
            </item>
@@ -210,7 +231,7 @@
            <item>
             <widget class="QLabel" name="label_6">
              <property name="text">
-              <string>масса m_Б</string>
+              <string>масса m_Б (от 0 до 10)</string>
              </property>
             </widget>
            </item>
@@ -247,7 +268,7 @@
            <item>
             <widget class="QLabel" name="label_7">
              <property name="text">
-              <string>коэффициент трения f</string>
+              <string>коэффициент трения f (от 0 до 1)</string>
              </property>
             </widget>
            </item>
@@ -260,7 +281,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>1</string>
+              <string>0.1</string>
              </property>
             </widget>
            </item>
@@ -291,7 +312,7 @@
            <item>
             <widget class="QLabel" name="label_9">
              <property name="text">
-              <string>Начальная угловая скорость w_0</string>
+              <string>Начальная угловая скорость w_0 (от 0 до 10)</string>
              </property>
             </widget>
            </item>
@@ -621,7 +642,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>791</width>
+     <width>883</width>
      <height>22</height>
     </rect>
    </property>
