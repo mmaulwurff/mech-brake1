@@ -34,6 +34,10 @@ private slots:
 
     void on_theoryButton_clicked();
 
+    void on_autorsButton_clicked();
+
+    void on_restartButton_clicked();
+
     private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;
@@ -43,13 +47,7 @@ private slots:
     QGraphicsEllipseItem wheel;
     double deg2rad(double deg) const { return deg*2*pi/360; }
     double rad2deg(double rad) const { return rad*360/2/pi; }
-    void wait() const
-    {
-        QEventLoop loop;
-        QTimer::singleShot(1000*dt, &loop, SLOT(quit()));
-        loop.exec();
-    }
-
+    void wait() const;
 };
 
 #endif // MAINWINDOW_H
