@@ -74,6 +74,10 @@ void MainWindow::on_action_triggered()
 
 void MainWindow::on_Start_released()
 {
+    ui->fiCurEdit->setText("");
+    ui->PTeorEdit->setText("");
+    ui->ErrEdit->setText("");
+
     double l=ui->lEdit->text().toDouble();
     if ( l < 0.1 || l > 1 ) {
         QMessageBox msgbox;
