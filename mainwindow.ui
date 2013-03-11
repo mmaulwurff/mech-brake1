@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>883</width>
+    <width>885</width>
     <height>696</height>
    </rect>
   </property>
@@ -147,7 +147,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>масса m_c (от 0 до 10)</string>
+              <string>масса m&lt;sub&gt;c&lt;/sub&gt;  (от 0 до 10)</string>
              </property>
             </widget>
            </item>
@@ -231,7 +231,7 @@
            <item>
             <widget class="QLabel" name="label_6">
              <property name="text">
-              <string>масса m_Б (от 0 до 10)</string>
+              <string>масса m&lt;sub&gt;Б&lt;/sub&gt; (от 0 до 10)</string>
              </property>
             </widget>
            </item>
@@ -312,7 +312,7 @@
            <item>
             <widget class="QLabel" name="label_9">
              <property name="text">
-              <string>Начальная угловая скорость ω_0 (от 0 до 10)</string>
+              <string>Начальная угловая скорость ω&lt;sub&gt;0&lt;/sub&gt; (от 0 до 10)</string>
              </property>
             </widget>
            </item>
@@ -349,7 +349,7 @@
            <item>
             <widget class="QLabel" name="label_10">
              <property name="text">
-              <string>угол разгона φ_разг</string>
+              <string>угол разгона φ&lt;sub&gt;разг&lt;/sub&gt;</string>
              </property>
             </widget>
            </item>
@@ -393,7 +393,7 @@
            <item>
             <widget class="QLabel" name="label_12">
              <property name="text">
-              <string>P_расч</string>
+              <string>P&lt;sub&gt;расч&lt;/sub&gt;</string>
              </property>
             </widget>
            </item>
@@ -499,7 +499,7 @@
               <item>
                <widget class="QLabel" name="label_15">
                 <property name="text">
-                 <string>P_теор</string>
+                 <string>P&lt;sub&gt;теор&lt;/sub&gt;</string>
                 </property>
                </widget>
               </item>
@@ -642,7 +642,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>883</width>
+     <width>885</width>
      <height>22</height>
     </rect>
    </property>

@@ -32,6 +32,8 @@ private slots:
 
     void on_exitButton_released();
 
+    void on_theoryButton_clicked();
+
     private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;

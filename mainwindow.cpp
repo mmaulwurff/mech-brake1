@@ -4,6 +4,9 @@
 #include <QDoubleValidator>
 #include <cmath>
 #include <QPen>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -197,4 +200,13 @@ void MainWindow::on_Start_released()
 void MainWindow::on_exitButton_released()
 {
     close();
+}
+
+void MainWindow::on_theoryButton_clicked()
+{
+    if ( !QDesktopServices::openUrl(QUrl(QDir::currentPath()+"/lab-stop.pdf") )) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Не удаётся открыть файл с теорией."));
+        msgbox.exec();
+    }
 }
