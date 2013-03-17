@@ -1,7 +1,23 @@
+	/*
+	*This file is part of mech-brake1.
+	*
+	*mech-brake1 is free software: you can redistribute it and/or modify
+	*it under the terms of the GNU General Public License as published by
+	*the Free Software Foundation, either version 3 of the License, or
+	*(at your option) any later version.
+	*
+	*mech-brake1 is distributed in the hope that it will be useful,
+	*but WITHOUT ANY WARRANTY; without even the implied warranty of
+	*MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	*GNU General Public License for more details.
+	*
+	*You should have received a copy of the GNU General Public License
+	*along with mech-brake1. If not, see <http://www.gnu.org/licenses/>.
+	*/
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
-#include <QDoubleValidator>
 #include <cmath>
 #include <QPen>
 #include <QDesktopServices>
@@ -14,40 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QDoubleValidator * lvalid = new QDoubleValidator(0.1, 1, 2, ui->lEdit);
-    lvalid->setNotation(QDoubleValidator::StandardNotation);
-    ui->lEdit->setValidator(lvalid);
-
-    QDoubleValidator * Rvalid = new QDoubleValidator(0.1, 1, 2, ui->REdit);
-    Rvalid->setNotation(QDoubleValidator::StandardNotation);
-    ui->REdit->setValidator(Rvalid);
-
-    QDoubleValidator * Mcvalid = new QDoubleValidator(0, 10, 1, ui->mcEdit);
-    Mcvalid->setNotation(QDoubleValidator::StandardNotation);
-    ui->mcEdit->setValidator(Mcvalid);
-
-    QDoubleValidator * Mbvalid = new QDoubleValidator(0, 10, 1, ui->mbEdit);
-    Mbvalid->setNotation(QDoubleValidator::StandardNotation);
-    ui->mbEdit->setValidator(Mbvalid);
-
-    QDoubleValidator * fvalid = new QDoubleValidator(0, 1, 2, ui->fEdit);
-    fvalid->setNotation(QDoubleValidator::StandardNotation);
-    ui->fEdit->setValidator(fvalid);
-
-    QDoubleValidator * wvalid = new QDoubleValidator(0, 10, 2, ui->wEdit);
-    wvalid->setNotation(QDoubleValidator::StandardNotation);
-    ui->wEdit->setValidator(wvalid);
-
-    QDoubleValidator * fivalid = new QDoubleValidator(0, 180, 2, ui->fiEdit);
-    fivalid->setNotation(QDoubleValidator::StandardNotation);
-    ui->fiEdit->setValidator(fivalid);
-
-    QDoubleValidator * Pvalid = new QDoubleValidator(0, 20000000, 3, ui->PEdit);
-    ui->PEdit->setValidator(Pvalid);
-
-    ui->lEdit->setFocus();
-    ui->statusBar->showMessage(tr("Эксперимент готов к запуску"));
-
+    //оси x, y
     scene.addLine(-160, 0, 240, 0);
     scene.addLine(0, -160, 0, 160);
 
@@ -57,9 +40,13 @@ MainWindow::MainWindow(QWidget *parent) :
     scene.addItem(&rectRight);
     scene.addItem(&wheel);
     line.setPen(QPen(Qt::black, 3));
+    razg_line.setPen(QPen(Qt::red, 1));
     scene.addItem(&line);
+    scene.addItem(&razg_line);
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->show();
+
+    ui->lEdit->setFocus();
 }
 
 MainWindow::~MainWindow()
@@ -74,80 +61,31 @@ void MainWindow::on_action_triggered()
 
 void MainWindow::on_Start_released()
 {
-    ui->fiCurEdit->setText("");
-    ui->PTeorEdit->setText("");
-    ui->ErrEdit->setText("");
+    ui->fiCurEdit->clear();
+    ui->PTeorEdit->clear();
+    ui->ErrEdit  ->clear();
 
-    double l=ui->lEdit->text().toDouble();
-    if ( l < 0.1 || l > 1 ) {
-        QMessageBox msgbox;
-        msgbox.setText(tr("Некорректная длина стержня l."));
-        msgbox.exec();
-        ui->lEdit->setText("");
-        ui->lEdit->setFocus();
-        return;
-    }
+    ui->lEdit ->setEnabled(false);
+    ui->mcEdit->setEnabled(false);
+    ui->REdit ->setEnabled(false);
+    ui->mbEdit->setEnabled(false);
+    ui->fEdit ->setEnabled(false);
+    ui->wEdit ->setEnabled(false);
+    ui->fiEdit->setEnabled(false);
+    ui->PEdit ->setEnabled(false);
+
+    const double l=ui->lEdit->text().toDouble();
     const double l_vis=l*150;
+    const double Gc=g*ui->mcEdit->text().toDouble();
+    const double R=ui->REdit->text().toDouble();
+    const double Gb=g*ui->mbEdit->text().toDouble();
+    const double f=ui->fEdit->text().toDouble();
+    const double w0=ui->wEdit->text().toDouble();
+    const double fi_razg=deg2rad(ui->fiEdit->text().toDouble());
 
-    double Gc=g*ui->mcEdit->text().toDouble();
-    if ( Gc < 0 || Gc > 10*g ) {
-        QMessageBox msgbox;
-        msgbox.setText(tr("Некорректная масса стержня."));
-        msgbox.exec();
-        ui->mcEdit->setText("");
-        ui->mcEdit->setFocus();
-        return;
-    }
-
-    double R=ui->REdit->text().toDouble();
-    if ( R < 0.1 || R > 1 ) {
-        QMessageBox msgbox;
-        msgbox.setText(tr("Некорректный радиус тормозного барабана R."));
-        msgbox.exec();
-        ui->REdit->setText("");
-        ui->REdit->setFocus();
-        return;
-    }
-
-    double Gb=g*ui->mbEdit->text().toDouble();
-    if ( Gb < 0 || Gb > 10*g ) {
-        QMessageBox msgbox;
-        msgbox.setText(tr("Некорректная масса тормозного барабана."));
-        msgbox.exec();
-        ui->mbEdit->setText("");
-        ui->mbEdit->setFocus();
-        return;
-    }
-
-    double f=ui->fEdit->text().toDouble();
-    if ( f < 0 || f > 1 ) {
-        QMessageBox msgbox;
-        msgbox.setText(tr("Некорректный коэффициент трения."));
-        msgbox.exec();
-        ui->fEdit->setText("");
-        ui->fEdit->setFocus();
-        return;
-    }
-
-    double w0=ui->wEdit->text().toDouble();
-    if ( w0 < 0 || w0 > 10 ) {
-        QMessageBox msgbox;
-        msgbox.setText(tr("Некорректная начальная угловая скорость."));
-        msgbox.exec();
-        ui->wEdit->setText("");
-        ui->wEdit->setFocus();
-        return;
-    }
-
-    double fi_razg=deg2rad(ui->fiEdit->text().toDouble());
-    if ( fi_razg < 0 || fi_razg > 180 ) {
-        QMessageBox msgbox;
-        msgbox.setText(tr("Некорректный угол разгона."));
-        msgbox.exec();
-        ui->fiEdit->setText("");
-        ui->fiEdit->setFocus();
-        return;
-    }
+    line.setLine(0, -l*150, 0, 0);
+    wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
+    razg_line.setLine(-160*sin(fi_razg), -160*cos(fi_razg), 0, 0);
 
     double w=w0, wprev=w0;
     double fi=0.01;
@@ -157,12 +95,9 @@ void MainWindow::on_Start_released()
 
     ui->Start->setText(tr("Идет эксперимент..."));
     ui->Start->setEnabled(false);
-    ui->restartButton->setEnabled(false);
-    line.setLine(-l_vis*sin(fi), -l_vis*cos(fi), 0, 0);
-    wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
+
     rectLeft.setRect (R*150+20, -20, 20, 40);
     rectRight.setRect(R*150+40, -10, 40, 20);
-    ui->statusBar->showMessage(tr("Ускорение"));
 
     //разгон
     for (uint k=0; fi<=fi_razg; ++k) {
@@ -170,14 +105,13 @@ void MainWindow::on_Start_released()
         fi+=(wprev+w)*dt/2;
         wprev=w;
         if ( 0==k%10 ) {
-            ui->fiCurEdit->setText(QString::number(rad2deg(fi)));
+            ui->fiCurEdit->setText(QString::number(int(rad2deg(fi))));
             line.setLine(-l_vis*sin(fi), -l_vis*cos(fi), 0, 0);
         }
         wait();
     }
 
     //этап 2 - торможение до вертикали
-    ui->statusBar->showMessage(tr("Торможение"));
     rectLeft.setRect (R*150,    -20, 20, 40);
     rectRight.setRect(R*150+20, -10, 40, 20);
 
@@ -188,7 +122,7 @@ void MainWindow::on_Start_released()
         fi+=(wprev+w)*dt/2;
         wprev=w;
         if ( 0==k%10 ) {
-            ui->fiCurEdit->setText(QString::number(rad2deg(fi)));
+            ui->fiCurEdit->setText(QString::number(int(rad2deg(fi))));
             line.setLine(-l_vis*sin(fi), -l_vis*cos(fi), 0, 0);
         }
         wait();
@@ -201,17 +135,12 @@ void MainWindow::on_Start_released()
             psi+=(wprev+w)*dt/2;
             wprev=w;
             if ( 0==k%10 ) {
-                ui->fiCurEdit->setText(QString::number(rad2deg(pi+psi)));
+                ui->fiCurEdit->setText(QString::number(int(rad2deg(pi+psi))));
                 line.setLine(l_vis*sin(psi), l_vis*cos(psi), 0, 0);
             }
             wait();
         }
-        if ( psi<=180 )
-            ui->statusBar->showMessage(tr("Эксперимент завершен."));
-        else
-            ui->statusBar->showMessage(tr("Эксперимент прерван."));
-    } else
-        ui->statusBar->showMessage(tr("Эксперимент прерван."));
+    }
 
     const double P_teor = (Gc*l + J*w0*w0/2)/R/f/(pi-fi_razg);
     ui->PTeorEdit->setText(QString::number(P_teor));
@@ -222,8 +151,15 @@ void MainWindow::on_Start_released()
     else
         ui->err5Label->setText(tr("превышает 5%"));
     ui->Start->setText(tr("Пуск"));
-    ui->Start->setEnabled(true);
-    ui->restartButton->setEnabled(true);
+    ui->Start ->setEnabled(true);
+    ui->lEdit ->setEnabled(true);
+    ui->mcEdit->setEnabled(true);
+    ui->REdit ->setEnabled(true);
+    ui->mbEdit->setEnabled(true);
+    ui->fEdit ->setEnabled(true);
+    ui->wEdit ->setEnabled(true);
+    ui->fiEdit->setEnabled(true);
+    ui->PEdit ->setEnabled(true);
 }
 
 void MainWindow::on_exitButton_released()
@@ -233,7 +169,7 @@ void MainWindow::on_exitButton_released()
 
 void MainWindow::on_theoryButton_clicked()
 {
-    if ( !QDesktopServices::openUrl(QUrl(QDir::currentPath()+"/lab-stop.pdf") )) {
+    if ( !QDesktopServices::openUrl(QUrl(QDir::currentPath()+"/Theory.pdf") )) {
         QMessageBox msgbox;
         msgbox.setText(tr("Не удаётся открыть файл с теорией."));
         msgbox.exec();
@@ -250,11 +186,117 @@ void MainWindow::wait() const
 void MainWindow::on_autorsButton_clicked()
 {
     QMessageBox msgbox;
-    msgbox.setText(tr("Авторы:\nАвтор1\nАвтор2"));
+    msgbox.setText(tr("Авторы:\nРуководитель: Крамаренко Николай Владимирович1\nИсполнитель: Кромм Александр Юрьевич"));
     msgbox.exec();
 }
 
-void MainWindow::on_restartButton_clicked()
+void MainWindow::on_lEdit_editingFinished()
 {
-    on_Start_released();
+    const double l=ui->lEdit->text().toDouble();
+    if ( l < 0.1 || l > 1 ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректная длина стержня."));
+        msgbox.exec();
+        ui->lEdit->clear();
+        ui->lEdit->setFocus();
+    } else {
+        line.setLine(0, -l*150, 0, 0);
+        ui->mcEdit->setFocus();
+    }
+}
+
+void MainWindow::on_mcEdit_editingFinished()
+{
+    const double Gc=g*ui->mcEdit->text().toDouble();
+    if ( Gc < 0 || Gc > 10*g ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректная масса стержня."));
+        msgbox.exec();
+        ui->mcEdit->clear();
+        ui->mcEdit->setFocus();
+    } else
+        ui->REdit->setFocus();
+}
+
+void MainWindow::on_REdit_editingFinished()
+{
+    const double R=ui->REdit->text().toDouble();
+    if ( R < 0.1 || R > 1 ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректный радиус тормозного барабана."));
+        msgbox.exec();
+        ui->REdit->clear();
+        ui->REdit->setFocus();
+    } else {
+        wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
+        ui->mbEdit->setFocus();
+    }
+}
+
+void MainWindow::on_mbEdit_editingFinished()
+{
+    const double Gb=g*ui->mbEdit->text().toDouble();
+    if ( Gb < 0 || Gb > 10*g ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректная масса тормозного барабана."));
+        msgbox.exec();
+        ui->mbEdit->clear();
+        ui->mbEdit->setFocus();
+    } else
+        ui->fEdit->setFocus();
+}
+
+void MainWindow::on_fEdit_editingFinished()
+{
+    const double f=ui->fEdit->text().toDouble();
+    if ( f < 0 || f > 0.9 ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректный коэффициент трения."));
+        msgbox.exec();
+        ui->fEdit->clear();
+        ui->fEdit->setFocus();
+    } else
+        ui->wEdit->setFocus();
+}
+
+void MainWindow::on_wEdit_editingFinished()
+{
+    const double w0=ui->wEdit->text().toDouble();
+    if ( w0 < 0 || w0 > 10 ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректная начальная угловая скорость."));
+        msgbox.exec();
+        ui->wEdit->clear();
+        ui->wEdit->setFocus();
+    } else
+        ui->fiEdit->setFocus();
+}
+
+void MainWindow::on_fiEdit_editingFinished()
+{
+    const double fi_razg=deg2rad(ui->fiEdit->text().toDouble());
+    if ( fi_razg < 0 || fi_razg > 180 ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректный угол разгона."));
+        msgbox.exec();
+        ui->fiEdit->clear();
+        ui->fiEdit->setFocus();
+    } else {
+        ui->PEdit->setFocus();
+        razg_line.setLine(-160*sin(fi_razg), -160*cos(fi_razg), 0, 0);
+    }
+}
+
+void MainWindow::on_PEdit_editingFinished()
+{
+    bool convert_ok;
+    ui->PEdit->text().toDouble(&convert_ok);
+    if ( !convert_ok ) {
+        QMessageBox msgbox;
+        msgbox.setText(tr("Некорректная теоретическая сила нажатия."));
+        msgbox.exec();
+        ui->PEdit->clear();
+        ui->PEdit->setFocus();
+    } else
+        ui->Start->setFocus();
 }

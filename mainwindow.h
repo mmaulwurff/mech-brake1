@@ -1,3 +1,20 @@
+	/*
+	*This file is part of mech-brake1.
+	*
+	*mech-brake1 is free software: you can redistribute it and/or modify
+	*it under the terms of the GNU General Public License as published by
+	*the Free Software Foundation, either version 3 of the License, or
+	*(at your option) any later version.
+	*
+	*mech-brake1 is distributed in the hope that it will be useful,
+	*but WITHOUT ANY WARRANTY; without even the implied warranty of
+	*MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	*GNU General Public License for more details.
+	*
+	*You should have received a copy of the GNU General Public License
+	*along with mech-brake1. If not, see <http://www.gnu.org/licenses/>.
+	*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -36,12 +53,27 @@ private slots:
 
     void on_autorsButton_clicked();
 
-    void on_restartButton_clicked();
+    void on_lEdit_editingFinished();
+
+    void on_mcEdit_editingFinished();
+
+    void on_REdit_editingFinished();
+
+    void on_mbEdit_editingFinished();
+
+    void on_fEdit_editingFinished();
+
+    void on_wEdit_editingFinished();
+
+    void on_fiEdit_editingFinished();
+
+    void on_PEdit_editingFinished();
 
     private:
     Ui::MainWindow *ui;
     QGraphicsScene scene;
     QGraphicsLineItem line;
+    QGraphicsLineItem razg_line;
     QGraphicsRectItem rectLeft;
     QGraphicsRectItem rectRight;
     QGraphicsEllipseItem wheel;
