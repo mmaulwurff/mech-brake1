@@ -186,7 +186,7 @@ void MainWindow::wait() const
 void MainWindow::on_autorsButton_clicked()
 {
     QMessageBox msgbox;
-    msgbox.setText(tr("Авторы:\nРуководитель: Крамаренко Николай Владимирович1\nИсполнитель: Кромм Александр Юрьевич"));
+    msgbox.setText(tr("Авторы:\nРуководитель: Крамаренко Николай Владимирович\nИсполнитель: Кромм Александр Юрьевич"));
     msgbox.exec();
 }
 

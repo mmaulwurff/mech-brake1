@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!--
-	This file is part of mech-brake1.
-
-	mech-brake1 is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	mech-brake1 is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with mech-brake1. If not, see <http://www.gnu.org/licenses/>.
-	-->
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -23,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>875</width>
-    <height>730</height>
+    <height>838</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -581,6 +565,12 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>70</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="text">
                  <string>100</string>
                 </property>
@@ -709,6 +699,12 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>70</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
                 </property>
@@ -741,6 +737,16 @@
                </spacer>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_29">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="images.qrc">:/errp.png</pixmap>
+              </property>
+             </widget>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -807,6 +813,16 @@
                </spacer>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_28">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="images.qrc">:/errp.jpg</pixmap>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="err5Label">
