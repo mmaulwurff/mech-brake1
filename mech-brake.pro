@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = Tormoz1
 DEPENDPATH += .
 INCLUDEPATH += .
 

@@ -118,7 +118,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox_3">
            <property name="title">
-            <string>Входные параметры</string>
+            <string>Введите входные параметры</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
@@ -136,7 +136,7 @@
                  <string/>
                 </property>
                 <property name="text">
-                 <string>размер l (от 0.1 до 1)</string>
+                 <string>длина l (от 0.1 до 1)</string>
                 </property>
                </widget>
               </item>
@@ -273,7 +273,7 @@
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>2. для тормозного барабана</string>
+               <string>2. для тормозного сплошного барабана</string>
               </property>
              </widget>
             </item>
@@ -538,7 +538,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox_4">
            <property name="title">
-            <string>Расчётный параметр</string>
+            <string>Введите расчётный параметр</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
@@ -625,7 +625,7 @@
            <item>
             <widget class="QLabel" name="label_13">
              <property name="text">
-              <string>угол поворота φ</string>
+              <string>текущий угол поворота φ</string>
              </property>
             </widget>
            </item>
