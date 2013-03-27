@@ -215,12 +215,9 @@ void MainWindow::on_lEdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректная длина стержня."));
         msgbox.exec();
-        ui->lEdit->clear();
         ui->lEdit->setFocus();
-    } else {
+    } else
         line.setLine(0, -l*150, 0, 0);
-        ui->mcEdit->setFocus();
-    }
 }
 
 void MainWindow::on_mcEdit_editingFinished()
@@ -230,10 +227,8 @@ void MainWindow::on_mcEdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректная масса стержня."));
         msgbox.exec();
-        ui->mcEdit->clear();
         ui->mcEdit->setFocus();
-    } else
-        ui->REdit->setFocus();
+    }
 }
 
 void MainWindow::on_REdit_editingFinished()
@@ -243,13 +238,11 @@ void MainWindow::on_REdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректный радиус тормозного барабана."));
         msgbox.exec();
-        ui->REdit->clear();
         ui->REdit->setFocus();
     } else {
         wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
         rectLeft.setRect (R*150+20, -20, 20, 40);
         rectRight.setRect(R*150+40, -10, 40, 20);
-        ui->mbEdit->setFocus();
     }
 }
 
@@ -260,10 +253,8 @@ void MainWindow::on_mbEdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректная масса тормозного барабана."));
         msgbox.exec();
-        ui->mbEdit->clear();
         ui->mbEdit->setFocus();
-    } else
-        ui->fEdit->setFocus();
+    }
 }
 
 void MainWindow::on_fEdit_editingFinished()
@@ -273,10 +264,8 @@ void MainWindow::on_fEdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректный коэффициент трения."));
         msgbox.exec();
-        ui->fEdit->clear();
         ui->fEdit->setFocus();
-    } else
-        ui->wEdit->setFocus();
+    }
 }
 
 void MainWindow::on_wEdit_editingFinished()
@@ -286,10 +275,8 @@ void MainWindow::on_wEdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректная начальная угловая скорость."));
         msgbox.exec();
-        ui->wEdit->clear();
         ui->wEdit->setFocus();
-    } else
-        ui->fiEdit->setFocus();
+    }
 }
 
 void MainWindow::on_fiEdit_editingFinished()
@@ -299,12 +286,9 @@ void MainWindow::on_fiEdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректный угол разгона."));
         msgbox.exec();
-        ui->fiEdit->clear();
         ui->fiEdit->setFocus();
-    } else {
-        ui->PEdit->setFocus();
+    } else
         razg_line.setLine(-160*sin(fi_razg), -160*cos(fi_razg), 0, 0);
-    }
 }
 
 void MainWindow::on_PEdit_editingFinished()
@@ -315,8 +299,6 @@ void MainWindow::on_PEdit_editingFinished()
         QMessageBox msgbox;
         msgbox.setText(tr("Некорректная теоретическая сила нажатия."));
         msgbox.exec();
-        ui->PEdit->clear();
         ui->PEdit->setFocus();
-    } else
-        ui->Start->setFocus();
+    }
 }
