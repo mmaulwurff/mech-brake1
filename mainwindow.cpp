@@ -209,8 +209,9 @@ void MainWindow::on_autorsButton_clicked()
 
 void MainWindow::on_lEdit_editingFinished()
 {
-    const double l=ui->lEdit->text().toDouble();
-    if ( l < 0.1 || l > 1 ) {
+    bool ok;
+    const double l=ui->lEdit->text().toDouble(&ok);
+    if ( !ok || l < 0.1 || l > 1 ) {
         msgbox.setText(tr("Некорректная длина стержня."));
         msgbox.exec();
         ui->lEdit->setFocus();
@@ -220,8 +221,9 @@ void MainWindow::on_lEdit_editingFinished()
 
 void MainWindow::on_mcEdit_editingFinished()
 {
-    const double Gc=g*ui->mcEdit->text().toDouble();
-    if ( Gc < 0 || Gc > 10*g ) {
+    bool ok;
+    const double Gc=g*ui->mcEdit->text().toDouble(&ok);
+    if ( !ok || Gc < 0 || Gc > 10*g ) {
         msgbox.setText(tr("Некорректная масса стержня."));
         msgbox.exec();
         ui->mcEdit->setFocus();
@@ -230,8 +232,9 @@ void MainWindow::on_mcEdit_editingFinished()
 
 void MainWindow::on_REdit_editingFinished()
 {
-    const double R=ui->REdit->text().toDouble();
-    if ( R < 0.1 || R > 1 ) {
+    bool ok;
+    const double R=ui->REdit->text().toDouble(&ok);
+    if ( !ok || R < 0.1 || R > 1 ) {
         msgbox.setText(tr("Некорректный радиус тормозного барабана."));
         msgbox.exec();
         ui->REdit->setFocus();
@@ -244,8 +247,9 @@ void MainWindow::on_REdit_editingFinished()
 
 void MainWindow::on_mbEdit_editingFinished()
 {
-    const double Gb=g*ui->mbEdit->text().toDouble();
-    if ( Gb < 0 || Gb > 10*g ) {
+    bool ok;
+    const double Gb=g*ui->mbEdit->text().toDouble(&ok);
+    if ( !ok || Gb < 0 || Gb > 10*g ) {
         msgbox.setText(tr("Некорректная масса тормозного барабана."));
         msgbox.exec();
         ui->mbEdit->setFocus();
@@ -254,8 +258,9 @@ void MainWindow::on_mbEdit_editingFinished()
 
 void MainWindow::on_fEdit_editingFinished()
 {
-    const double f=ui->fEdit->text().toDouble();
-    if ( f < 0 || f > 0.9 ) {
+    bool ok;
+    const double f=ui->fEdit->text().toDouble(&ok);
+    if ( !ok || f < 0 || f > 0.9 ) {
         msgbox.setText(tr("Некорректный коэффициент трения."));
         msgbox.exec();
         ui->fEdit->setFocus();
@@ -264,8 +269,9 @@ void MainWindow::on_fEdit_editingFinished()
 
 void MainWindow::on_wEdit_editingFinished()
 {
-    const double w0=ui->wEdit->text().toDouble();
-    if ( w0 < 0 || w0 > 10 ) {
+    bool ok;
+    const double w0=ui->wEdit->text().toDouble(&ok);
+    if ( !ok || w0 < 0 || w0 > 10 ) {
         msgbox.setText(tr("Некорректная начальная угловая скорость."));
         msgbox.exec();
         ui->wEdit->setFocus();
@@ -274,8 +280,9 @@ void MainWindow::on_wEdit_editingFinished()
 
 void MainWindow::on_fiEdit_editingFinished()
 {
-    const double fi_razg=ui->fiEdit->text().toDouble();
-    if ( fi_razg < 0 || fi_razg > 180 ) {
+    bool ok;
+    const double fi_razg=ui->fiEdit->text().toDouble(&ok);
+    if ( !ok || fi_razg < 0 || fi_razg > 180 ) {
         ui->fiEdit->setFocus();
         msgbox.setText(tr("Некорректный угол разгона."));
         msgbox.exec();
@@ -285,9 +292,9 @@ void MainWindow::on_fiEdit_editingFinished()
 
 void MainWindow::on_PEdit_editingFinished()
 {
-    bool convert_ok;
-    ui->PEdit->text().toDouble(&convert_ok);
-    if ( !convert_ok ) {
+    bool ok;
+    const double p_teor=ui->PEdit->text().toDouble(&ok);
+    if ( !ok || p_teor < 0 ) {
         msgbox.setText(tr("Некорректная теоретическая сила нажатия."));
         msgbox.exec();
         ui->PEdit->setFocus();
