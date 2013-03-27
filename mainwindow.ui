@@ -414,7 +414,7 @@ Tab и Shift+Tab</string>
               <item>
                <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>коэффициент трения f (от 0 до 0.9)</string>
+                 <string>коэффициент трения f (от 0.1 до 0.9)</string>
                 </property>
                </widget>
               </item>
@@ -492,7 +492,7 @@ Tab и Shift+Tab</string>
                  <string/>
                 </property>
                 <property name="text">
-                 <string>1.00</string>
+                 <string>5.00</string>
                 </property>
                 <property name="maxLength">
                  <number>5</number>
@@ -617,7 +617,7 @@ Tab и Shift+Tab</string>
                  </size>
                 </property>
                 <property name="text">
-                 <string>100</string>
+                 <string>50</string>
                 </property>
                </widget>
               </item>

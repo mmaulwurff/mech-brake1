@@ -260,7 +260,7 @@ void MainWindow::on_fEdit_editingFinished()
 {
     bool ok;
     const double f=ui->fEdit->text().toDouble(&ok);
-    if ( !ok || f < 0 || f > 0.9 ) {
+    if ( !ok || f < 0.1 || f > 0.9 ) {
         msgbox.setText(tr("Некорректный коэффициент трения."));
         msgbox.exec();
         ui->fEdit->setFocus();
