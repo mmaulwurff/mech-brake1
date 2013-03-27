@@ -81,6 +81,7 @@ void MainWindow::on_Start_released()
     ui->fiCurEdit->clear();
     ui->PTeorEdit->clear();
     ui->ErrEdit  ->clear();
+    ui->percEdit ->clear();
 
     ui->lEdit ->setEnabled(false);
     ui->mcEdit->setEnabled(false);
@@ -167,9 +168,9 @@ void MainWindow::on_Start_released()
     const double err_p=100 * ( P - P_teor ) / P_teor;
     ui->ErrEdit->setText(QString::number(err_p));
     if ( qAbs(err_p) < 5 )
-        ui->err5Label->setText(tr("не превышает 5%"));
+        ui->percEdit->setText(tr("не превышает 5%"));
     else
-        ui->err5Label->setText(tr("превышает 5%"));
+        ui->percEdit->setText(tr("превышает 5%"));
     ui->Start->setText(tr("Пуск"));
     ui->Start ->setEnabled(true);
     ui->lEdit ->setEnabled(true);
