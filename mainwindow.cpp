@@ -33,19 +33,24 @@ MainWindow::MainWindow(QWidget *parent) :
     //оси x, y
     scene.addLine(-160, 0, 240, 0);
     scene.addLine(0, -160, 0, 160);
-
+    //два прямоугольника колодки
     rectLeft.setBrush(QBrush(Qt::white));
     rectRight.setBrush(QBrush(Qt::white));
+    //стержень
+    line.setPen(QPen(Qt::black, 3));
+    //угол разгона
+    razg_line.setPen(QPen(Qt::red, 1));
     scene.addItem(&rectLeft);
     scene.addItem(&rectRight);
     scene.addItem(&wheel);
-    line.setPen(QPen(Qt::black, 3));
-    razg_line.setPen(QPen(Qt::red, 1));
     scene.addItem(&line);
     scene.addItem(&razg_line);
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->show();
 
+    on_lEdit_editingFinished();
+    on_REdit_editingFinished();
+    on_fiEdit_editingFinished();
     ui->lEdit->setFocus();
 }
 
@@ -61,6 +66,19 @@ void MainWindow::on_action_triggered()
 
 void MainWindow::on_Start_released()
 {
+    //доступные для записи
+    //lEdit  - поле ввода длины стержня
+    //mcEdit - поле ввода массы стержня
+    //REdit  - поле ввода радиуса барабана
+    //mbEdit - поле ввода массы барабана
+    //fEdit  - поле ввода коэффициента трения
+    //wEdit  - поле ввода начальной угловой скорости
+    //fiEdit - поле ввода угла разгона
+    //PEdit  - поле ввода расчётной силы нажатия колодки
+    //только для чтения:
+    //fiCurEdit - текущий угол поворота
+    //PTeorEdit - теоретическая сила нажатия колодки
+    //ErrEdit   - ошибка расчёта
     ui->fiCurEdit->clear();
     ui->PTeorEdit->clear();
     ui->ErrEdit  ->clear();
@@ -74,30 +92,28 @@ void MainWindow::on_Start_released()
     ui->fiEdit->setEnabled(false);
     ui->PEdit ->setEnabled(false);
 
-    const double l=ui->lEdit->text().toDouble();
-    const double l_vis=l*150;
-    const double Gc=g*ui->mcEdit->text().toDouble();
-    const double R=ui->REdit->text().toDouble();
-    const double Gb=g*ui->mbEdit->text().toDouble();
-    const double f=ui->fEdit->text().toDouble();
-    const double w0=ui->wEdit->text().toDouble();
-    const double fi_razg=deg2rad(ui->fiEdit->text().toDouble());
+    const double l=ui->lEdit->text().toDouble(); //длина стержня, м
+    const double l_vis=l*150; //длина стрежня для отображения на экране
+    const double Gc=g*ui->mcEdit->text().toDouble(); //вес стержня, кг
+    const double R=ui->REdit->text().toDouble(); //радиус барабана, м
+    const double Gb=g*ui->mbEdit->text().toDouble(); //вес барабана, кг
+    const double f=ui->fEdit->text().toDouble(); //коэффициент трения, безразмерный
+    const double w0=ui->wEdit->text().toDouble(); //начальная угловая скорость, рад/с
+    const double fi_razg=deg2rad(ui->fiEdit->text().toDouble()); //угол разгона, рад
 
     line.setLine(0, -l*150, 0, 0);
     wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
     razg_line.setLine(-160*sin(fi_razg), -160*cos(fi_razg), 0, 0);
 
-    double w=w0, wprev=w0;
-    double fi=0.01;
-    dt=0.001;
+    double w=w0; //текущая угловая скорость (w_k), рад/с
+    double wprev=w0; //предыдущая угловая скорость (w_k-1), рад/с
+    double fi=0.01; //текущий угол поворота, рад
+    dt=0.001; //интервал времени для расчётов, с
     const double J=Gc*l*l/g/3 + Gb*R*R/g/2;
     const double b=Gc*l/2/J;
 
     ui->Start->setText(tr("Идет эксперимент..."));
     ui->Start->setEnabled(false);
-
-    rectLeft.setRect (R*150+20, -20, 20, 40);
-    rectRight.setRect(R*150+40, -10, 40, 20);
 
     //разгон
     for (uint k=0; fi<=fi_razg; ++k) {
@@ -229,6 +245,8 @@ void MainWindow::on_REdit_editingFinished()
         ui->REdit->setFocus();
     } else {
         wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
+        rectLeft.setRect (R*150+20, -20, 20, 40);
+        rectRight.setRect(R*150+40, -10, 40, 20);
         ui->mbEdit->setFocus();
     }
 }

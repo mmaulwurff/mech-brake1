@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>errp.gif</file>
-        <file>errp.jpg</file>
         <file>errp.png</file>
     </qresource>
 </RCC>
