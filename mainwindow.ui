@@ -141,7 +141,7 @@ Tab и Shift+Tab</string>
             <item>
              <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>1. для стержня</string>
+               <string>1. Для стержня</string>
               </property>
              </widget>
             </item>
@@ -153,7 +153,7 @@ Tab и Shift+Tab</string>
                  <string/>
                 </property>
                 <property name="text">
-                 <string>длина l (от 0.1 до 1)</string>
+                 <string>Длина l (от 0.1 до 1)</string>
                 </property>
                </widget>
               </item>
@@ -233,7 +233,7 @@ Tab и Shift+Tab</string>
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;масса m&lt;span style=&quot; font-size:small;&quot;&gt;c&lt;/span&gt; (от 0 до 10)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масса m&lt;span style=&quot; font-size:small;&quot;&gt;c&lt;/span&gt; (от 0 до 10)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -290,7 +290,7 @@ Tab и Shift+Tab</string>
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>2. для тормозного сплошного барабана</string>
+               <string>2. Для тормозного сплошного барабана</string>
               </property>
              </widget>
             </item>
@@ -302,7 +302,7 @@ Tab и Shift+Tab</string>
                  <string/>
                 </property>
                 <property name="text">
-                 <string>радиус R (от 0.1 до длины стержня)</string>
+                 <string>Радиус R (от 0.1 до длины стержня)</string>
                 </property>
                </widget>
               </item>
@@ -358,7 +358,7 @@ Tab и Shift+Tab</string>
               <item>
                <widget class="QLabel" name="label_6">
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;масса m&lt;span style=&quot; font-size:small;&quot;&gt;б&lt;/span&gt; (от 0 до 10)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Масса m&lt;span style=&quot; font-size:small;&quot;&gt;б&lt;/span&gt; (от 0 до 10)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -414,7 +414,7 @@ Tab и Shift+Tab</string>
               <item>
                <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>коэффициент трения f (от 0.1 до 0.9)</string>
+                 <string>Коэффициент трения f (от 0.1 до 0.9)</string>
                 </property>
                </widget>
               </item>
@@ -461,7 +461,7 @@ Tab и Shift+Tab</string>
             <item>
              <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>3. для движения</string>
+               <string>3. Для движения</string>
               </property>
              </widget>
             </item>
@@ -513,7 +513,7 @@ Tab и Shift+Tab</string>
               <item>
                <widget class="QLabel" name="label_10">
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;угол разгона φ&lt;span style=&quot; font-size:small;&quot;&gt;разг&lt;/span&gt;(от 0 до 180)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Угол разгона φ&lt;span style=&quot; font-size:small;&quot;&gt;разг&lt;/span&gt;(от 0 до 180)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -589,7 +589,7 @@ Tab и Shift+Tab</string>
             <item>
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>4. сила нажатия колодки</string>
+               <string>4. Сила нажатия колодки</string>
               </property>
              </widget>
             </item>
@@ -683,7 +683,7 @@ Tab и Shift+Tab</string>
            <item>
             <widget class="QLabel" name="label_13">
              <property name="text">
-              <string>текущий угол поворота φ</string>
+              <string>Текущий угол поворота φ</string>
              </property>
             </widget>
            </item>
