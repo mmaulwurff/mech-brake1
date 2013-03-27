@@ -190,7 +190,7 @@ void MainWindow::on_exitButton_released()
 
 void MainWindow::on_theoryButton_clicked()
 {
-    const QString path="file://"+QDir::currentPath()+"/Theory.pdf";
+    const QString path="file://"+QDir::currentPath()+"/theory.pdf";
     if ( !QDesktopServices::openUrl(QUrl(path)) ) {
         msgbox.setText(tr("Не удаётся открыть файл с теорией: ")+path);
         msgbox.exec();
@@ -207,7 +207,11 @@ void MainWindow::wait() const
 void MainWindow::on_autorsButton_clicked()
 {
     QMessageBox msgbox;
-    msgbox.setText(tr("Авторы:\nРуководитель: Крамаренко Николай Владимирович\nИсполнитель: Кромм Александр Юрьевич"));
+    msgbox.setText(tr("\
+Новосибирский Государственный Технический Университет\n\
+Кафедра теоретической механики и сопротивления материалов\n\n\
+Руководитель: Крамаренко Николай Владимирович\nИсполнитель: Кромм Александр Юрьевич\n\n\
+Новосибирск, 2013"));
     msgbox.exec();
 }
 
