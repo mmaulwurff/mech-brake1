@@ -110,7 +110,6 @@ void MainWindow::on_Start_released()
     double w=w0; //текущая угловая скорость (w_k), рад/с
     double wprev=w0; //предыдущая угловая скорость (w_k-1), рад/с
     double fi=0.0; //текущий угол поворота, рад
-    dt=0.001; //интервал времени для расчётов, с
     const double J=Gc*l*l/g/3 + Gb*R*R/g/2;
     const double b=Gc*l/2/J;
 
@@ -200,7 +199,7 @@ void MainWindow::on_theoryButton_clicked()
 void MainWindow::wait() const
 {
     QEventLoop loop;
-    QTimer::singleShot(ui->intenSlider->value()*dt, &loop, SLOT(quit()));
+    QTimer::singleShot(1000*ui->intenSlider->value()*dt, &loop, SLOT(quit()));
     loop.exec();
 }
 
@@ -307,4 +306,9 @@ void MainWindow::on_PEdit_editingFinished()
         msgbox.exec();
         ui->PEdit->setFocus();
     }
+}
+
+void MainWindow::on_intenSlider_valueChanged(int value)
+{
+    ui->intenLabel->setText(tr("Интенсивность визуализации: ")+QString::number(value+1));
 }
