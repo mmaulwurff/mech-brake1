@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
-    <height>756</height>
+    <width>887</width>
+    <height>782</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -470,7 +470,7 @@ Tab и Shift+Tab</string>
               <item>
                <widget class="QLabel" name="label_9">
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Начальная угловая скорость ω&lt;span style=&quot; font-size:small;&quot;&gt;0&lt;/span&gt; (от 0 до 10)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Начальная угловая скорость ω&lt;span style=&quot; font-size:small;&quot;&gt;0&lt;/span&gt; (от 0.1 до 10)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>

@@ -108,7 +108,7 @@ void MainWindow::on_Start_released()
 
     double w=w0; //текущая угловая скорость (w_k), рад/с
     double wprev=w0; //предыдущая угловая скорость (w_k-1), рад/с
-    double fi=0.01; //текущий угол поворота, рад
+    double fi=0.0; //текущий угол поворота, рад
     dt=0.001; //интервал времени для расчётов, с
     const double J=Gc*l*l/g/3 + Gb*R*R/g/2;
     const double b=Gc*l/2/J;
@@ -146,7 +146,7 @@ void MainWindow::on_Start_released()
     }
 
     if ( w>0 ) { //этап 3 - после вертикали
-        double psi=0.01;
+        double psi=0.0;
         for (uint k=0; w>0 && psi<=pi; ++k) {
             w-=(b*sin(psi) + d)*dt;
             psi+=(wprev+w)*dt/2;
@@ -156,6 +156,9 @@ void MainWindow::on_Start_released()
                 line.setLine(l_vis*sin(psi), l_vis*cos(psi), 0, 0);
             }
             wait();
+        }
+        if ( psi >= pi ) {
+            msgbox.setText(tr("Эксперимент прерван. Стержень совершил один оборот."));
         }
     }
 
@@ -271,7 +274,7 @@ void MainWindow::on_wEdit_editingFinished()
 {
     bool ok;
     const double w0=ui->wEdit->text().toDouble(&ok);
-    if ( !ok || w0 < 0 || w0 > 10 ) {
+    if ( !ok || w0 < 0.1 || w0 > 10 ) {
         msgbox.setText(tr("Некорректная начальная угловая скорость."));
         msgbox.exec();
         ui->wEdit->setFocus();
