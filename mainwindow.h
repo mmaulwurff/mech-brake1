@@ -25,6 +25,10 @@
 #include <QEventLoop>
 #include <QMessageBox>
 
+const double dt=0.001; //интервал времени для расчётов в секундах
+const double g=9.81;   //ускорение свободного падения
+const double pi=3.14;
+
 namespace Ui {
 class MainWindow;
 }
@@ -32,10 +36,6 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
-    static const double dt=0.001; //интервал времени для расчётов, с
-    static const double pi=3.14;
-    static const double g=9.81;   //ускорение свободного падения
 
 public:
     explicit MainWindow(QWidget *parent = 0);

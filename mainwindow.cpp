@@ -189,7 +189,7 @@ void MainWindow::on_exitButton_released()
 
 void MainWindow::on_theoryButton_clicked()
 {
-    const QString path="file://"+QDir::currentPath()+"/theory.pdf";
+    const QString path="file:///"+QDir::currentPath()+"/theory.pdf";
     if ( !QDesktopServices::openUrl(QUrl(path)) ) {
         msgbox.setText(tr("Не удаётся открыть файл с теорией: ")+path);
         msgbox.exec();
