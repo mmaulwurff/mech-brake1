@@ -767,7 +767,7 @@
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>50</width>
+                  <width>70</width>
                   <height>16777215</height>
                  </size>
                 </property>
@@ -775,7 +775,10 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="inputMask">
-                 <string>dd0; </string>
+                 <string>xdd9x99; </string>
+                </property>
+                <property name="maxLength">
+                 <number>7</number>
                 </property>
                 <property name="readOnly">
                  <bool>true</bool>

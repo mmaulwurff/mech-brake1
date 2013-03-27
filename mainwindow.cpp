@@ -43,8 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
     scene.addItem(&rectLeft);
     scene.addItem(&rectRight);
     scene.addItem(&wheel);
-    scene.addItem(&line);
     scene.addItem(&razg_line);
+    scene.addItem(&line);
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->show();
 
@@ -101,9 +101,11 @@ void MainWindow::on_Start_released()
     const double w0=ui->wEdit->text().toDouble(); //начальная угловая скорость, рад/с
     const double fi_razg=deg2rad(ui->fiEdit->text().toDouble()); //угол разгона, рад
 
+    razg_line.setLine(-160*sin(fi_razg), -160*cos(fi_razg), 0, 0);
     line.setLine(0, -l*150, 0, 0);
     wheel.setRect(-R*150, -R*150, R*150*2, R*150*2);
-    razg_line.setLine(-160*sin(fi_razg), -160*cos(fi_razg), 0, 0);
+    rectLeft.setRect (R*150+20, -20, 20, 40);
+    rectRight.setRect(R*150+40, -10, 40, 20);
 
     double w=w0; //текущая угловая скорость (w_k), рад/с
     double wprev=w0; //предыдущая угловая скорость (w_k-1), рад/с
@@ -160,9 +162,9 @@ void MainWindow::on_Start_released()
 
     const double P_teor = (Gc*l + J*w0*w0/2)/R/f/(pi-fi_razg);
     ui->PTeorEdit->setText(QString::number(P_teor));
-    const double err_p=100*qAbs(P-P_teor)/P_teor;
+    const double err_p=100 * ( P - P_teor ) / P_teor;
     ui->ErrEdit->setText(QString::number(err_p));
-    if ( err_p < 5 )
+    if ( qAbs(err_p) < 5 )
         ui->err5Label->setText(tr("не превышает 5%"));
     else
         ui->err5Label->setText(tr("превышает 5%"));
