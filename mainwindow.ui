@@ -130,7 +130,8 @@
             <item>
              <widget class="QLabel" name="label_28">
               <property name="text">
-               <string>Переключение между полями: Tab и Shift+Tab</string>
+               <string>Переключение между полями:
+Tab и Shift+Tab</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -189,7 +190,7 @@
                  <string/>
                 </property>
                 <property name="text">
-                 <string>0.10</string>
+                 <string>0.60</string>
                 </property>
                 <property name="maxLength">
                  <number>4</number>
@@ -301,7 +302,7 @@
                  <string/>
                 </property>
                 <property name="text">
-                 <string>радиус R (от 0.1 до 1)</string>
+                 <string>радиус R (от 0.1 до длины стержня)</string>
                 </property>
                </widget>
               </item>

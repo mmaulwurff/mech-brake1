@@ -234,7 +234,7 @@ void MainWindow::on_REdit_editingFinished()
 {
     bool ok;
     const double R=ui->REdit->text().toDouble(&ok);
-    if ( !ok || R < 0.1 || R > 1 ) {
+    if ( !ok || R < 0.1 || R > ui->lEdit->text().toDouble() ) {
         msgbox.setText(tr("Некорректный радиус тормозного барабана."));
         msgbox.exec();
         ui->REdit->setFocus();
