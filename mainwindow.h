@@ -23,6 +23,7 @@
 #include <QGraphicsLineItem>
 #include <QTimer>
 #include <QEventLoop>
+#include <QMessageBox>
 
 const double pi=3.14;
 const double g=9.81;
@@ -77,6 +78,9 @@ private slots:
     QGraphicsRectItem rectLeft;
     QGraphicsRectItem rectRight;
     QGraphicsEllipseItem wheel;
+
+    QMessageBox msgbox; //окно предупреждения о некорректных значениях
+
     double deg2rad(double deg) const { return deg*2*pi/360; }
     double rad2deg(double rad) const { return rad*360/2/pi; }
     void wait() const;
