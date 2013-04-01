@@ -22,6 +22,8 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QDir>
+#include <QFile>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -205,12 +207,15 @@ void MainWindow::wait() const
 
 void MainWindow::on_autorsButton_clicked()
 {
+    QFile file("authors.txt");
+    if ( !file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
+        msgbox.setText(tr("Не найден файл authors.txt"));
+        return;
+    }
     QMessageBox msgbox;
-    msgbox.setText(tr("\
-Новосибирский Государственный Технический Университет\n\
-Кафедра теоретической механики и сопротивления материалов\n\n\
-Руководитель: Крамаренко Николай Владимирович\nИсполнитель: Кромм Александр Юрьевич\n\n\
-Новосибирск, 2013"));
+    QTextStream in(&file);
+    QString str=in.readAll();
+    msgbox.setText(str);
     msgbox.exec();
 }
 
