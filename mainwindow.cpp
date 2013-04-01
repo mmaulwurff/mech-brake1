@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -49,6 +50,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->show();
 
+    QSettings sett(QDir::currentPath()+"/mech-brake1.ini", QSettings::IniFormat);
+    //QSettings::setDefaultFormat(QSettings::IniFormat);
+    ui->lEdit ->setText(sett.value("l", "0.50").toString());
+    ui->mcEdit->setText(sett.value("mc", "5.00").toString());
+    ui->REdit ->setText(sett.value("R", "0.50").toString());
+    ui->mbEdit->setText(sett.value("mb", "5.00").toString());
+    ui->fEdit ->setText(sett.value("f", "0.30").toString());
+    ui->wEdit ->setText(sett.value("w", "5.00").toString());
+    ui->fiEdit->setText(sett.value("fi", "45").toString());
+    ui->PEdit ->setText(sett.value("P", "50").toString());
+
     on_lEdit_editingFinished();
     on_REdit_editingFinished();
     on_fiEdit_editingFinished();
@@ -57,6 +69,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    QSettings sett(QDir::currentPath()+"/mech-brake1.ini", QSettings::IniFormat);
+    sett.setValue("l", "0.50");
+    sett.setValue("mc", "5.00");
+    sett.setValue("R", "0.50");
+    sett.setValue("mb", "5.00");
+    sett.setValue("f", "0.30");
+    sett.setValue("w", "5.00");
+    sett.setValue("fi", "45");
+    sett.setValue("P", "50");
     delete ui;
 }
 
