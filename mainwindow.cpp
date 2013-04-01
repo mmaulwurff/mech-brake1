@@ -170,7 +170,7 @@ void MainWindow::on_Start_released()
 
     if ( w>0 ) { //этап 3 - после вертикали
         double psi=0.0;
-        for (uint k=0; w>0 && psi<=pi; ++k) {
+        for (uint k=0; w>0; ++k) {
             w-=(b*sin(psi) + d)*dt;
             psi+=(wprev+w)*dt/2;
             wprev=w;
@@ -178,10 +178,12 @@ void MainWindow::on_Start_released()
                 ui->fiCurEdit->setText(QString::number(int(rad2deg(pi+psi))));
                 line.setLine(l_vis*sin(psi), l_vis*cos(psi), 0, 0);
             }
+            if ( psi>=pi ) {
+                msgbox.setText(tr("Эксперимент прерван: стержень совершил оборот."));
+                msgbox.exec();
+                break;
+            }
             wait();
-        }
-        if ( psi >= pi ) {
-            msgbox.setText(tr("Эксперимент прерван. Стержень совершил один оборот."));
         }
     }
 
