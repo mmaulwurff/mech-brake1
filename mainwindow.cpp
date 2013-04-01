@@ -315,5 +315,5 @@ void MainWindow::on_PEdit_editingFinished()
 
 void MainWindow::on_intenSlider_valueChanged(int value)
 {
-    ui->intenLabel->setText(tr("Интенсивность визуализации: ")+QString::number(value+1));
+    ui->intenLabel->setText(tr("Интенсивность визуализации: ")+QString::number(6-value));
 }
