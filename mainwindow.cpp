@@ -50,8 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->show();
 
-    QSettings sett(QDir::currentPath()+"/mech-brake1.ini", QSettings::IniFormat);
-    //QSettings::setDefaultFormat(QSettings::IniFormat);
+    QSettings sett(QDir::currentPath()+"/tor-mech-brake1.ini", QSettings::IniFormat);
     ui->lEdit ->setText(sett.value("l", "0.50").toString());
     ui->mcEdit->setText(sett.value("mc", "5.00").toString());
     ui->REdit ->setText(sett.value("R", "0.50").toString());
@@ -69,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    QSettings sett(QDir::currentPath()+"/mech-brake1.ini", QSettings::IniFormat);
+    QSettings sett(QDir::currentPath()+"/tor-mech-brake1.ini", QSettings::IniFormat);
     sett.setValue("l", "0.50");
     sett.setValue("mc", "5.00");
     sett.setValue("R", "0.50");
@@ -214,7 +213,7 @@ void MainWindow::on_exitButton_released()
 
 void MainWindow::on_theoryButton_clicked()
 {
-    const QString path="file:///"+QDir::currentPath()+"/theory.pdf";
+    const QString path="file:///"+QDir::currentPath()+"/tor-theory.pdf";
     if ( !QDesktopServices::openUrl(QUrl(path)) ) {
         msgbox.setText(tr("Не удаётся открыть файл с теорией: ")+path);
         msgbox.exec();
@@ -230,9 +229,9 @@ void MainWindow::wait() const
 
 void MainWindow::on_autorsButton_clicked()
 {
-    QFile file("authors.txt");
+    QFile file("tor-authors.txt");
     if ( !file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
-        msgbox.setText(tr("Не найден файл authors.txt"));
+        msgbox.setText(tr("Не найден файл tor-authors.txt"));
         return;
     }
     QMessageBox msgbox;
