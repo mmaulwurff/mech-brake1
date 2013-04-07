@@ -249,8 +249,14 @@ void MainWindow::on_lEdit_editingFinished()
         msgbox.setText(tr("Некорректная длина стержня."));
         msgbox.exec();
         ui->lEdit->setFocus();
-    } else
+    } else {
         line.setLine(0, -l*150, 0, 0);
+        if ( ui->REdit->text().toDouble(&ok) > ui->lEdit->text().toDouble() ) {
+            msgbox.setText(tr("Некорректный радиус тормозного барабана."));
+            msgbox.exec();
+            ui->REdit->setFocus();
+        }
+    }
 }
 
 void MainWindow::on_mcEdit_editingFinished()
