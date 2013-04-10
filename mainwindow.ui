@@ -70,10 +70,10 @@
          <item>
           <widget class="QSlider" name="intenSlider">
            <property name="minimum">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="maximum">
-            <number>5</number>
+            <number>100</number>
            </property>
            <property name="singleStep">
             <number>1</number>
@@ -82,7 +82,7 @@
             <number>1</number>
            </property>
            <property name="value">
-            <number>1</number>
+            <number>10</number>
            </property>
            <property name="tracking">
             <bool>true</bool>
@@ -97,7 +97,7 @@
             <bool>false</bool>
            </property>
            <property name="tickPosition">
-            <enum>QSlider::TicksBelow</enum>
+            <enum>QSlider::NoTicks</enum>
            </property>
            <property name="tickInterval">
             <number>1</number>
@@ -107,7 +107,7 @@
          <item>
           <widget class="QLabel" name="intenLabel">
            <property name="text">
-            <string>Интенсивность визуализации: 5</string>
+            <string>Интенсивность визуализации</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

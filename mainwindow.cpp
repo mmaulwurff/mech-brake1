@@ -60,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->fiEdit->setText(sett.value("fi", "45").toString());
     ui->PEdit ->setText(sett.value("P", "50").toString());
 
+    ui->intenLabel->setText(tr("Интенсивность визуализации: ")+
+        QString::number(ui->intenSlider->maximum()-ui->intenSlider->value()));
+
     on_lEdit_editingFinished();
     on_REdit_editingFinished();
     on_fiEdit_editingFinished();
@@ -143,7 +146,7 @@ void MainWindow::on_Start_released()
         w+=b*sin(fi)*dt;
         fi+=(wprev+w)*dt/2;
         wprev=w;
-        if ( 0==k%10 ) {
+        if ( 0==k%(10/ui->intenSlider->value()+1) ) {
             ui->fiCurEdit->setText(QString::number(int(rad2deg(fi))));
             line.setLine(-l_vis*sin(fi), -l_vis*cos(fi), 0, 0);
         }
@@ -160,7 +163,7 @@ void MainWindow::on_Start_released()
         w+=(b*sin(fi) - d)*dt;
         fi+=(wprev+w)*dt/2;
         wprev=w;
-        if ( 0==k%10 ) {
+        if ( 0==k%(10/ui->intenSlider->value()+1) ) {
             ui->fiCurEdit->setText(QString::number(int(rad2deg(fi))));
             line.setLine(-l_vis*sin(fi), -l_vis*cos(fi), 0, 0);
         }
@@ -173,12 +176,12 @@ void MainWindow::on_Start_released()
             w-=(b*sin(psi) + d)*dt;
             psi+=(wprev+w)*dt/2;
             wprev=w;
-            if ( 0==k%10 ) {
+            if ( 0==k%(10/ui->intenSlider->value()+1) ) {
                 ui->fiCurEdit->setText(QString::number(int(rad2deg(pi+psi))));
                 line.setLine(l_vis*sin(psi), l_vis*cos(psi), 0, 0);
             }
             if ( psi>=pi ) {
-                msgbox.setText(tr("Эксперимент прерван: стержень совершил оборот."));
+                msgbox.setText(tr("Сила торможения P слишком мала, стержень совершает больше одного оборота."));
                 msgbox.exec();
                 break;
             }
@@ -223,7 +226,7 @@ void MainWindow::on_theoryButton_clicked()
 void MainWindow::wait() const
 {
     QEventLoop loop;
-    QTimer::singleShot(1000*ui->intenSlider->value()*dt, &loop, SLOT(quit()));
+    QTimer::singleShot(dt*100*ui->intenSlider->value(), &loop, SLOT(quit()));
     loop.exec();
 }
 
@@ -343,5 +346,5 @@ void MainWindow::on_PEdit_editingFinished()
 
 void MainWindow::on_intenSlider_valueChanged(int value)
 {
-    ui->intenLabel->setText(tr("Интенсивность визуализации: ")+QString::number(6-value));
+    ui->intenLabel->setText(tr("Интенсивность визуализации: ")+QString::number(ui->intenSlider->maximum()-value));
 }
