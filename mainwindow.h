@@ -24,6 +24,7 @@
 #include <QTimer>
 #include <QEventLoop>
 #include <QMessageBox>
+#include <qmath.h>
 
 const double dt=0.001; //интервал времени для расчётов в секундах
 const double g=9.81;   //ускорение свободного падения
@@ -84,6 +85,7 @@ private slots:
 
     double deg2rad(double deg) const { return deg*2*pi/360; }
     double rad2deg(double rad) const { return rad*360/2/pi; }
+    int round(double d) const { return qFloor(d+0.5); }
     void wait() const;
 };
 

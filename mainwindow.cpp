@@ -147,7 +147,7 @@ void MainWindow::on_Start_released()
         fi+=(wprev+w)*dt/2;
         wprev=w;
         if ( 0==k%(10/ui->intenSlider->value()+1) ) {
-            ui->fiCurEdit->setText(QString::number(int(rad2deg(fi))));
+            ui->fiCurEdit->setText(QString::number(round(rad2deg(fi))));
             line.setLine(-l_vis*sin(fi), -l_vis*cos(fi), 0, 0);
         }
         wait();
@@ -164,7 +164,7 @@ void MainWindow::on_Start_released()
         fi+=(wprev+w)*dt/2;
         wprev=w;
         if ( 0==k%(10/ui->intenSlider->value()+1) ) {
-            ui->fiCurEdit->setText(QString::number(int(rad2deg(fi))));
+            ui->fiCurEdit->setText(QString::number(round(rad2deg(fi))));
             line.setLine(-l_vis*sin(fi), -l_vis*cos(fi), 0, 0);
         }
         wait();
@@ -177,7 +177,7 @@ void MainWindow::on_Start_released()
             psi+=(wprev+w)*dt/2;
             wprev=w;
             if ( 0==k%(10/ui->intenSlider->value()+1) ) {
-                ui->fiCurEdit->setText(QString::number(int(rad2deg(pi+psi))));
+                ui->fiCurEdit->setText(QString::number(round(rad2deg(pi+psi))));
                 line.setLine(l_vis*sin(psi), l_vis*cos(psi), 0, 0);
             }
             if ( psi>=pi ) {
@@ -235,6 +235,7 @@ void MainWindow::on_autorsButton_clicked()
     QFile file("tor-authors.txt");
     if ( !file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
         msgbox.setText(tr("Не найден файл tor-authors.txt"));
+        msgbox.exec();
         return;
     }
     QMessageBox msgbox;
@@ -337,7 +338,7 @@ void MainWindow::on_PEdit_editingFinished()
 {
     bool ok;
     const double p_teor=ui->PEdit->text().toDouble(&ok);
-    if ( !ok || p_teor < 0 ) {
+    if ( !ok || p_teor <= 0 ) {
         msgbox.setText(tr("Некорректная теоретическая сила нажатия."));
         msgbox.exec();
         ui->PEdit->setFocus();

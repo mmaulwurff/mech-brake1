@@ -893,6 +893,9 @@ Tab и Shift+Tab</string>
                     <height>0</height>
                    </size>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -930,6 +933,9 @@ Tab и Shift+Tab</string>
      <layout class="QHBoxLayout" name="horizontalLayout_13">
       <item>
        <widget class="QPushButton" name="autorsButton">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Авторы</string>
         </property>
@@ -940,6 +946,9 @@ Tab и Shift+Tab</string>
         <property name="enabled">
          <bool>true</bool>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Теория</string>
         </property>
@@ -947,6 +956,9 @@ Tab и Shift+Tab</string>
       </item>
       <item>
        <widget class="QPushButton" name="exitButton">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>Выход</string>
         </property>
