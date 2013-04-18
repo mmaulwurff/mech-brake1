@@ -516,7 +516,7 @@ Tab и Shift+Tab</string>
               <item>
                <widget class="QLabel" name="label_10">
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Угол разгона φ&lt;span style=&quot; font-size:small;&quot;&gt;разг&lt;/span&gt;(от 0 до 180)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Угол разгона φ&lt;span style=&quot; font-size:small;&quot;&gt;разг&lt;/span&gt;(от 0 до 179)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>

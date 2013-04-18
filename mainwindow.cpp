@@ -326,7 +326,7 @@ void MainWindow::on_fiEdit_editingFinished()
 {
     bool ok;
     const double fi_razg=ui->fiEdit->text().toDouble(&ok);
-    if ( !ok || fi_razg < 0 || fi_razg > 180 ) {
+    if ( !ok || fi_razg < 0 || fi_razg > 179 ) {
         ui->fiEdit->setFocus();
         msgbox.setText(tr("Некорректный угол разгона."));
         msgbox.exec();
